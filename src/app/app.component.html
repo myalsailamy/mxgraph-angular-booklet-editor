@@ -1,0 +1,18 @@
+<button (click)="printItemsLocations()">Click To Print Item Positions</button>
+<button (click)="graph.zoomIn()">Zoom In</button>
+<button (click)="zoomOut()">Zoom Out</button>
+<button (click)="undoManager.undo()">Undo</button>
+<button (click)="undoManager.redo()">Redo</button>
+<button (click)="addCell()">+ Add</button>
+<button (click)="deleteCell()">- Delete</button>
+
+<br>
+X:<input type="number" name="" id="x" [(ngModel)]="positionX"  [disabled]="disableInput"/>
+Y:<input type="number" name="" id="y" [(ngModel)]="positionY" [disabled]="disableInput"/>
+Height:<input type="number" name="" id="itemHeight" [(ngModel)]="itemHeight" [disabled]="disableInput"/>
+Width:<input type="number" name="" id="itemWidth" [(ngModel)]="itemWidth" [disabled]="disableInput"/>
+<button (click)="applyChangedValues()">Apply</button>
+
+<div id="demoGraph" class="demoGraph">
+  <div #graphContainer style="background-color: aqua;" (click)="printSelectedCell()" (mousedown)="printSelectedCell()" (mouseup)="printSelectedCell()"></div>
+</div>
