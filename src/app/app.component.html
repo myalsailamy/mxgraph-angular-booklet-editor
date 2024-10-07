@@ -1,6 +1,7 @@
-<button (click)="printItemsLocations()">Click To Print Item Positions</button>
-<button (click)="graph.zoomIn()">Zoom In</button>
+<button (click)="printItemsLocations()">Print Item Positions</button>
+<!-- <button (click)="graph.zoomIn()">Zoom In</button>
 <button (click)="zoomOut()">Zoom Out</button>
+<button (click)="zoomActual()">Zoom Actual</button> -->
 <button (click)="undoManager.undo()">Undo</button>
 <button (click)="undoManager.redo()">Redo</button>
 <button (click)="addCell()">+ Add</button>
@@ -13,6 +14,6 @@ Height:<input type="number" name="" id="itemHeight" [(ngModel)]="itemHeight" [di
 Width:<input type="number" name="" id="itemWidth" [(ngModel)]="itemWidth" [disabled]="disableInput"/>
 <button (click)="applyChangedValues()">Apply</button>
 
-<div id="demoGraph" class="demoGraph">
+<div id="demoGraph" class="demoGraph"  (contextmenu)="$any($event).preventDefault()">
   <div #graphContainer style="background-color: aqua;" (click)="printSelectedCell()" (mousedown)="printSelectedCell()" (mouseup)="printSelectedCell()"></div>
 </div>

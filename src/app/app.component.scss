@@ -1,4 +1,4 @@
-#demoGraph {
+.demoGraph {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
@@ -7,6 +7,10 @@
     background-color: antiquewhite;
     padding: 0px !important;
     margin: 0px !important;
+    // height: 500px !important;
+    // width: 500px !important;
+    border: solid #888 1px;
+    // overflow: scroll;
     // height: 500px !important;
     // width: 500px !important;
 }

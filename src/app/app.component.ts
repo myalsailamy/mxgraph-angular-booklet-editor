@@ -35,14 +35,20 @@ export class AppComponent implements OnInit, AfterViewInit {
       console.log('Yes! Yes!');
     }
 
+    const pageHeight: number = 3508;
+    const pageWidth: number = 2479;
+   // 2598 × 3623 px
+   // 2598 px × 3623 px
     this.graph = new mx.mxGraph(this.container) as mxGraph;
     this.graph.autoExtend = false;
-    this.graph.maximumContainerSize = new mx.mxRectangle(0, 0, this.scaleSizes(2408), this.scaleSizes(3508));
-    this.graph.minimumContainerSize = new mx.mxRectangle(0, 0, this.scaleSizes(2408), this.scaleSizes(3508));
+    this.graph.maximumContainerSize = new mx.mxRectangle(0, 0, this.scaleSizes(pageWidth), this.scaleSizes(pageHeight));
+    this.graph.minimumContainerSize = new mx.mxRectangle(0, 0, this.scaleSizes(pageWidth), this.scaleSizes(pageHeight));
+    this.graph.maximumGraphBounds = new mx.mxRectangle(0, 0, this.scaleSizes(pageWidth), this.scaleSizes(pageHeight));
+    this.graph.minimumGraphSize = new mx.mxRectangle(0, 0, this.scaleSizes(pageWidth), this.scaleSizes(pageHeight));
     this.graph.setResizeContainer(true);
 
-    console.log('scaleSizes', this.scaleSizes(3508));
-    console.log('convertToRealValue', this.convertToRealValue(this.scaleSizes(3508)));
+    console.log('scaleSizes', this.scaleSizes(pageHeight));
+    console.log('convertToRealValue', this.convertToRealValue(this.scaleSizes(pageHeight)));
 
     // ------------------
     var listener = (sender: any, evt: any) => this.undoFunc(sender, evt);
@@ -50,9 +56,10 @@ export class AppComponent implements OnInit, AfterViewInit {
     this.graph.getView().addListener(mx.mxEvent.UNDO, listener);
     // -------------------------------------
 
-    this.graph.minimumGraphSize = new mx.mxRectangle(0, 0, this.scaleSizes(2408), this.scaleSizes(3508));
+    // this.graph.minimumGraphSize = new mx.mxRectangle(0, 0, this.scaleSizes(pageWidth), this.scaleSizes(pageHeight));
     this.graph.border = 1;
-    var img = new mx.mxImage('https://porequest.s3.us-east-1.amazonaws.com/pageTemplates/a80d4ed6-1e55-4c88-81a3-4efb0ccce217.png', this.scaleSizes(2408), this.scaleSizes(3508));
+    var img = new mx.mxImage('https://porequest.s3.us-east-1.amazonaws.com/pageTemplates/e12680bf-4239-4fad-a28e-01d3be1fcecd.jpg',
+      this.scaleSizes(pageWidth), this.scaleSizes(pageHeight));
     this.graph.setBackgroundImage(img);
     this.graph.gridSize = 2;
     const model: mxGraphModel = this.graph.getModel();
@@ -152,7 +159,8 @@ export class AppComponent implements OnInit, AfterViewInit {
     try {
       const parent = this.graph.getDefaultParent();
       const nextId = model.nextId;
-      this.graph.insertVertex(parent, `${nextId}`, `Item ${nextId}`, this.scaleSizes(0), this.scaleSizes(0), this.scaleSizes(892), this.scaleSizes(776), 'selectable=1;connectable=0;editable=0;movable=1;');
+      this.graph.insertVertex(parent, `${nextId}`, `Item ${nextId}`, this.scaleSizes(0), this.scaleSizes(0),
+        this.scaleSizes(892), this.scaleSizes(776), 'selectable=1;connectable=0;editable=0;movable=1;');
 
     } finally {
       model.endUpdate();
@@ -204,6 +212,10 @@ export class AppComponent implements OnInit, AfterViewInit {
     this.graph.zoom(1, true);
   }
 
+  zoomActual() {
+    this.graph.zoomActual();
+  }
+
   undoFunc(sender: any, evt: any): any {
     this.undoManager.undoableEditHappened(evt.getProperty('edit'));
   }
@@ -212,11 +224,11 @@ export class AppComponent implements OnInit, AfterViewInit {
     this.undoManager.undo();
   }
 
-  scaleSizes(value: number, percentage: number = 5 /* % */): number {
+  scaleSizes(value: number, percentage: number = 6 /* % */): number {
     return (value / percentage);
   }
 
-  convertToRealValue(value: number, percentage: number = 5 /* % */): number {
+  convertToRealValue(value: number, percentage: number = 6 /* % */): number {
     return value * percentage;
   }
 }
